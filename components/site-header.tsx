@@ -73,11 +73,13 @@ export default function SiteHeader() {
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center justify-between">
           <div className="flex items-center space-x-4">
-            <Link href={"/"} className="flex items-center space-x-2">
-              <div className="bg-blue-500 rounded-full p-1">
-                <span className="text-white font-bold text-xl">Σ</span>
+            <Link href={"/"}>
+              <div className="flex items-center space-x-2">
+                <div className="bg-blue-500 rounded-full p-1">
+                  <span className="text-white font-bold text-xl">Σ</span>
+                </div>
+                <span className="font-bold text-xl">Mantine</span>
               </div>
-              <span className="font-bold text-xl">Mantine</span>
             </Link>
 
             <NavigationMenu className="hidden md:flex">
@@ -111,7 +113,7 @@ export default function SiteHeader() {
                               .toLowerCase()
                               .replace(/\s+/g, "-")}`}
                             className="block group"
-                          >
+                            legacyBehavior>
                             <div className="flex items-start gap-4">
                               <div className="p-2 bg-muted rounded-md group-hover:bg-muted/80">
                                 <feature.icon className="h-6 w-6 text-blue-500" />
@@ -208,7 +210,7 @@ export default function SiteHeader() {
                           .replace(/\s+/g, "-")}`}
                         className="flex items-start gap-4 py-2"
                         onClick={() => setOpen(false)}
-                      >
+                        legacyBehavior>
                         <div className="p-2 bg-muted rounded-md">
                           <feature.icon className="h-6 w-6 text-blue-500" />
                         </div>
