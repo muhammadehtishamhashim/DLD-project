@@ -19,49 +19,80 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import {
-  Code,
-  Book,
-  PieChart,
-  DollarSign,
-  Fingerprint,
-  Bell,
+  Users,
+  Briefcase,
+  BookOpen,
+  MessageSquare,
   Menu,
   X,
+  ChevronDown,
+  Landmark, // Added for Financial Management
+  Bus, // Added for Transport Management
+  Library, // Added for Resource Management
+  BarChart3, // Added for Analytics and Reports
+  ShieldCheck, // Added for Security
+  Settings, // Added for Management
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ChevronDown } from "lucide-react";
+// Removed: UserCheck, ClipboardList
+import Logo from "./logo";
 
 const features = [
   {
-    icon: Code,
-    title: "Open source",
-    description: "This Pokemon's cry is very loud and distracting",
+    icon: Users,
+    title: "Student Management",
+    description: "Manage student profiles, enrollment, and academic records.",
+    href: "/admin/students",
   },
   {
-    icon: DollarSign,
-    title: "Free for everyone",
-    description: "The fluid of Smeargle's tail secretions changes",
+    icon: Briefcase,
+    title: "Staff Management",
+    description: "Oversee staff profiles, roles, and assignments.",
+    href: "/admin/staff",
   },
   {
-    icon: Book,
-    title: "Documentation",
-    description: "Yanma is capable of seeing 360 degrees without",
+    icon: BookOpen,
+    title: "Academic Management",
+    description: "Organize classes, subjects, and academic calendars.",
+    href: "/admin/academics",
   },
   {
-    icon: Fingerprint,
+    icon: MessageSquare,
+    title: "Communication Hub",
+    description: "Facilitate communication between parents, teachers, and students.",
+    href: "/communication",
+  },
+  {
+    icon: Landmark,
+    title: "Financial Management",
+    description: "Track fees, manage payroll, and generate financial reports.",
+    href: "/admin/finance",
+  },
+  {
+    icon: Bus,
+    title: "Transport Management",
+    description: "Manage bus routes, student transport, and vehicle tracking.",
+    href: "/admin/transport",
+  },
+  {
+    icon: Library,
+    title: "Resource Management",
+    description: "Oversee library, inventory, and other school resources.",
+    href: "/admin/resources",
+  },
+  {
+    icon: BarChart3,
+    title: "Analytics & Reports",
+    description: "Generate insightful reports and analytics on school data.",
+    href: "/admin/reports",
+  },
+  {
+    icon: ShieldCheck,
     title: "Security",
-    description: "The shell's rounded shape and the grooves on its",
-  },
-  {
-    icon: PieChart,
-    title: "Analytics",
-    description: "This Pokémon uses its flying ability to quickly chase",
-  },
-  {
-    icon: Bell,
-    title: "Notifications",
-    description: "Combusken battles with the intensely hot flames it spews",
-  },
+    description: "Ensure data privacy and secure access controls.",
+    href: "/admin/security",
+  }
+ 
 ];
 
 export default function SiteHeader() {
@@ -69,33 +100,24 @@ export default function SiteHeader() {
   const [showFeatures, setShowFeatures] = React.useState(false);
 
   return (
-    <div className="h-screen">
+    <div>
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center justify-between">
+        <div className="container max-w-6xl mx-auto flex h-14 items-center justify-between">
           <div className="flex items-center space-x-4">
-            <Link href={"/"}>
-              <div className="flex items-center space-x-2">
-                <div className="bg-blue-500 rounded-full p-1">
-                  <span className="text-white font-bold text-xl">Σ</span>
-                </div>
-                <span className="font-bold text-xl">Mantine</span>
-              </div>
-            </Link>
+           <Logo/>
 
             <NavigationMenu className="hidden md:flex">
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <Link href="/" legacyBehavior passHref>
-                    <NavigationMenuLink className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
-                      Home
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink asChild>
+                    <Link href="/">Home</Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>Features</NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-[600px] p-4">
+                    <div className="w-[900px] p-4"> {/* Adjusted width for 3 columns */}
                       <div className="flex items-center justify-between mb-4 pb-2 border-b">
                         <h4 className="text-lg font-medium">Features</h4>
                         <Link
@@ -105,29 +127,28 @@ export default function SiteHeader() {
                           View all
                         </Link>
                       </div>
-                      <div className="grid gap-4 md:grid-cols-2">
+                      <div className="grid gap-4 md:grid-cols-3"> {/* Changed to 3 columns */}
                         {features.map((feature, index) => (
-                          <Link
-                            key={index}
-                            href={`/feature/${feature.title
-                              .toLowerCase()
-                              .replace(/\s+/g, "-")}`}
-                            className="block group"
-                            legacyBehavior>
-                            <div className="flex items-start gap-4">
-                              <div className="p-2 bg-muted rounded-md group-hover:bg-muted/80">
-                                <feature.icon className="h-6 w-6 text-blue-500" />
+                          <NavigationMenuLink asChild key={index}>
+                            <Link
+                              href={feature.href} // Using the href from the feature object
+                              className="block group"
+                            >
+                              <div className="flex items-start gap-4">
+                                <div className="p-2 bg-muted rounded-md group-hover:bg-muted/80">
+                                  <feature.icon className="h-6 w-6 text-blue-500" />
+                                </div>
+                                <div>
+                                  <h5 className="font-medium mb-1 group-hover:text-blue-500">
+                                    {feature.title}
+                                  </h5>
+                                  <p className="text-sm text-muted-foreground">
+                                    {feature.description}
+                                  </p>
+                                </div>
                               </div>
-                              <div>
-                                <h5 className="font-medium mb-1 group-hover:text-blue-500">
-                                  {feature.title}
-                                </h5>
-                                <p className="text-sm text-muted-foreground">
-                                  {feature.description}
-                                </p>
-                              </div>
-                            </div>
-                          </Link>
+                            </Link>
+                          </NavigationMenuLink>
                         ))}
                       </div>
                       <div className="mt-6 pt-4 border-t">
@@ -139,7 +160,11 @@ export default function SiteHeader() {
                               numbers
                             </p>
                           </div>
-                          <Button variant="secondary">Get started</Button>
+                         
+                            <Button variant="secondary" asChild>
+                               <Link href="/contact-us">Get started</Link>
+                            </Button>
+                          
                         </div>
                       </div>
                     </div>
@@ -147,19 +172,15 @@ export default function SiteHeader() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/learn" legacyBehavior passHref>
-                    <NavigationMenuLink className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
-                      Learn
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink asChild>
+                    <Link href="/pricing">Pricing</Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/academy" legacyBehavior passHref>
-                    <NavigationMenuLink className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
-                      Academy
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink asChild>
+                    <Link href="/how-it-works">How it Works</Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
@@ -205,12 +226,10 @@ export default function SiteHeader() {
                     {features.map((feature, index) => (
                       <Link
                         key={index}
-                        href={`/feature/${feature.title
-                          .toLowerCase()
-                          .replace(/\s+/g, "-")}`}
+                        href={feature.href} // Using the href from the feature object
                         className="flex items-start gap-4 py-2"
                         onClick={() => setOpen(false)}
-                        legacyBehavior>
+                      >
                         <div className="p-2 bg-muted rounded-md">
                           <feature.icon className="h-6 w-6 text-blue-500" />
                         </div>
@@ -225,18 +244,18 @@ export default function SiteHeader() {
                   </div>
                 )}
                 <Link
-                  href="/learn"
+                  href="/pricing" // Changed from /learn
                   className="px-4 py-2 text-lg font-medium hover:bg-accent"
                   onClick={() => setOpen(false)}
                 >
-                  Learn
+                  Pricing {/* Changed from Learn */}
                 </Link>
                 <Link
-                  href="/academy"
+                  href="/how-it-works" // Changed from /academy
                   className="px-4 py-2 text-lg font-medium hover:bg-accent"
                   onClick={() => setOpen(false)}
                 >
-                  Academy
+                  How it Works {/* Changed from Academy */}
                 </Link>
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-background">
