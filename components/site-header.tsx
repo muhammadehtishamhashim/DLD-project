@@ -24,14 +24,12 @@ import {
   BookOpen,
   MessageSquare,
   Menu,
-  X,
   ChevronDown,
   Landmark, // Added for Financial Management
   Bus, // Added for Transport Management
   Library, // Added for Resource Management
   BarChart3, // Added for Analytics and Reports
   ShieldCheck, // Added for Security
-  Settings, // Added for Management
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 // Removed: UserCheck, ClipboardList

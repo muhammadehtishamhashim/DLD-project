@@ -1,4 +1,4 @@
-import HeroSection from '@/components/frontend/hero-section';
+// Removed unused HeroSection import
 import SiteHeader from '@/components/site-header';
 import React from 'react';
 
